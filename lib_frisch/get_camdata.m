@@ -16,8 +16,10 @@ fprintf('posd.axcam.CameraTarget    = %s;\n',  mat2str(get(ax,'CameraTarget'   )
 fprintf('posd.axcam.CameraUpVector  = %s;\n',  mat2str(get(ax,'CameraUpVector' ),5))
 fprintf('posd.axcam.CameraViewAngle = %s;\n',  mat2str(get(ax,'CameraViewAngle'),5))
 
-fprintf('posd.legend.Units          = %s;\n',  mat2str(ax.Legend.Units))
-fprintf('posd.legend.Position       = %s;\n',  mat2str(ax.Legend.Position,5))
+if ~isempty(ax.Legend)
+  fprintf('posd.legend.Units          = %s;\n',  mat2str(ax.Legend.Units))
+  fprintf('posd.legend.Position       = %s;\n',  mat2str(ax.Legend.Position,5))
+end
 
 fprintf('\n')
 end

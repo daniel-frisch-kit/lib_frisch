@@ -118,7 +118,7 @@ set(p0, 'Color','black', 'LineWidth',3)
 ph = matlab.graphics.function.FunctionLine.empty;
 for k = 1:12
   fun = @(x1) normpdf(x1, k*dt*uh + x0h, dt*sigma*sqrt(k));
-  ph(k) = fplot(ax, fun, [-1,15], 'DisplayName',sprintf('$f^p_{%u}(x_{%u})$',k,k), 'Color',ax.Colormap(5*k,:));
+  ph(k) = fplot(ax, fun, [-1,15], 'DisplayName',sprintf('$f^p_{%u}(x_{%u})$',k,k), 'Color',cols(5*k,:));
 end
 set(ph, 'LineWidth',3)
 
@@ -150,6 +150,61 @@ posd.legend.Position       = [0.86108 0.010257 0.1343 0.98171];
 set(fig, posd.figure)
 set(ax, posd.axes)
 set(ax.Legend, posd.legend)
+movegui(fig)
+
+% print(fig, '-dsvg', fullfile(pwd, 'Figures', [name,'.svg']))  
+
+
+
+
+
+%% Plot Results - Prediction (Feature Image)
+
+name = 'Forward-Inference_Prediction_Feature';
+
+fig = figure(284348);
+clf(fig)
+set(fig, 'Color','white', 'NumberTitle','off', 'Name',name, 'DefaultTextInterpreter','LaTeX')
+ax = axes(fig);
+set(ax, 'NextPlot','add', 'DataAspectRatio',[1,.2,1], 'LabelFontSizeMultiplier',1.5)
+
+% cols = ax.ColorOrder;
+cols = ax.Colormap;
+
+% Plot initial Dirac delta
+p0 = plot(ax, [x0h,x0h], [0,1], 'DisplayName','$f^e_0(x_0)$');
+set(p0, 'Color','black', 'LineWidth',3)
+
+% Plot the following predicted Gaussian densities 
+ph = matlab.graphics.function.FunctionLine.empty;
+for k = 1:7
+  fun = @(x1) normpdf(x1, k*dt*uh + x0h, dt*sigma*sqrt(k));
+  ph(k) = fplot(ax, fun, [0,7], 'DisplayName',sprintf('$f^p_{%u}(x_{%u})$',k,k), 'Color',cols(9*k,:));
+end
+set(ph, 'LineWidth',3)
+
+set(ax, 'XGrid','on', 'YGrid','on', 'ZGrid','on')
+%set(ax, 'XMinorGrid','on', 'YMinorGrid','on', 'ZMinorGrid','on')
+ax.XAxis.TickLabels = {};
+ax.YAxis.TickLabels = {};
+
+xlim(ax, ph(1).XRange)
+
+ax.Children = flip(ax.Children);
+
+% get_camdata(ax)
+posd = struct();
+posd.figure.Units          = 'pixels';
+posd.figure.Position       = [31 629 275 201];
+posd.axes.Units            = 'normalized';
+posd.axes.Position         = [0.014925 0.023188 0.95821 0.95942];
+posd.axcam.CameraPosition  = [3.5 0.5 44.159];
+posd.axcam.CameraTarget    = [3.5 0.5 0];
+posd.axcam.CameraUpVector  = [0 1 0];
+posd.axcam.CameraViewAngle = 9.0635;
+
+set(fig, posd.figure)
+set(ax, posd.axes)
 movegui(fig)
 
 % print(fig, '-dsvg', fullfile(pwd, 'Figures', [name,'.svg']))  
