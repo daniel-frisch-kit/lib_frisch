@@ -1,8 +1,23 @@
 function camd = get_camdata(ax)
+% get_camdata(ax)
+% Prints Matlab code to reproduce the current camera settings
+
+assert(isscalar(ax))
+assert(isa(ax,'matlab.graphics.axis.Axes'), 'Please specify an axes object.')
 
 fg = ax.Parent;
 
+% Print code how to show camera toolbar automatically
 fprintf('\n')
+fprintf('%% Show camera toolbar \n')
+fprintf('cameratoolbar(fig, ''Show'');\n')
+fprintf('cameratoolbar(fig, ''SetMode'',''orbit'');\n')
+fprintf('cameratoolbar(fig, ''SetCoordSys'',''none'')\n')
+
+% Print code that can reproduce camera settings 
+fprintf('\n')
+fprintf('%% Reproduce camera settings \n')
+fprintf('%% get_camdata(gca) \n')
 fprintf('posd = struct();\n')
 
 fprintf('posd.figure.Units          = %s;\n',  mat2str(get(fg,'Units')))
@@ -22,4 +37,13 @@ if ~isempty(ax.Legend)
 end
 
 fprintf('\n')
+
+% Print code that can apply the saved camera positions
+fprintf('%% Apply positioning \n')
+fprintf('set(fig, posd.figure) \n')
+fprintf('set(ax, posd.axes) \n')
+fprintf('set(ax, posd.axcam) \n')
+%fprintf('set(lg, posd.legend) \n')
+
+
 end

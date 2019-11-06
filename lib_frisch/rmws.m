@@ -1,8 +1,10 @@
 function rmws( varargin )
 %RMWS Remove White Space Border around Figures
-% optional argument: axes (otherwise gca is used)
-
-% Execute after window resize
+% Input: axes (optional, otherwise gca is used)
+% Execute after window resize! 
+% Then, save figure with: print(fig, '-dpdf', 'test.pdf')
+% Alternatively: use export_fig() which automatically removes whitespace. 
+%
 
 args = varargin;
 
@@ -42,7 +44,6 @@ pos = [space, yPos, width-2*space, height-2*space];
 pos = pos + [insets(1), insets(2), -insets(1)-insets(3), -insets(2)-insets(4)];
 pos = max(0,pos);
 ax.Position = pos;
-
 
 % ax = axes; plot(1:10); rmws(ax);
 

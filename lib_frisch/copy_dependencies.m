@@ -1,6 +1,6 @@
 function copy_dependencies( start_mfile, destination )
-%copy_dependencies Copies all files necessary to run into a subfolder
-%   For example to run in a screen, to give code away, or for backup
+%copy_dependencies Copies all external code files necessary to run a script into a subfolder
+%   For example in order to run in a server screen, to give code away, or for backup
 
 %[flist,plist] = matlab.codetools.requiredFilesAndProducts('copy_dependencies.m'); [flist'; {plist.Name}']
 
