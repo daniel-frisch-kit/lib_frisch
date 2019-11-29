@@ -2,6 +2,8 @@ function expfig(name,fig)
 %expfig
 % Save figure in various formats with one function call
 
+validateattributes(fig, {'matlab.ui.Figure'}, {'scalar'}, 2)
+
 folder = 'Figures';
 
 if ~(exist(folder,'dir')==7)
